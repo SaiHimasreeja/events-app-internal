@@ -18,13 +18,16 @@ app.use(bodyParser.json());
 // from a cloud data store
 const mockEvents = {
     events: [
-        { title: 'an event', id: 1, description: 'something really cool' },
-        { title: 'another event', id: 2, description: 'something even cooler' }
+        { }
     ]
+   
 };
-
-
-
+const mockUpdateEvents = {
+    updateevents: [
+        { }
+    ]
+   
+};
 
 // health endpoint - returns an empty array
 app.get('/', (req, res) => {
@@ -33,7 +36,7 @@ app.get('/', (req, res) => {
 
 // version endpoint to provide easy convient method to demonstrating tests pass/fail
 app.get('/version', (req, res) => {
-    res.json({ version: '1.0.2' });
+    res.json({ version: '1.0.0' });
 });
 
 
@@ -41,6 +44,9 @@ app.get('/version', (req, res) => {
 // if you went on to develop this as a real application.
 app.get('/events', (req, res) => {
     res.json(mockEvents);
+});
+app.get('/updateevents', (req, res) => {
+    res.json(mockUpdateEvents);
 });
 
 // Adds an event - in a real solution, this would insert into a cloud datastore.
@@ -57,19 +63,19 @@ app.post('/event', (req, res) => {
     mockEvents.events.push(ev);
     // return the complete array
     res.json(mockEvents);
-});
+}
 
-app.put('/eventupdate', (req, res) => {
+);
+app.post('/updateevents', (req, res) => {
     // create a new object from the json data and add an id
-    const ev = { 
-        Eventname: req.body.Eventname, 
-        Update: req.body.update,
+    const ab = { 
+        EventId: req.body.EventId, 
+        Updatedescription: req.body.Updatedescription,
      }
     // add to the mock array
-    mockEvents.events.push(ev);
+    mockUpdateEvents.updateevents.push=(ab);
     // return the complete array
-    res.json(mockEvents);
-});
+    res.json(mockUpdateEvents);});
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
