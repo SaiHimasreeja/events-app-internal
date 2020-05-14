@@ -17,17 +17,11 @@ app.use(bodyParser.json());
 // mock events data - for a real solution this data should be coming 
 // from a cloud data store
 const mockEvents = {
-    events: [
-        { }
-    ]
-   
+    events: [{ title: '', description: '', Country: '',City: 'Pune', id: 1 },]
 };
-const mockUpdateEvents = {
-    updateevents: [
-        { }
-    ]
-   
-};
+
+
+
 
 // health endpoint - returns an empty array
 app.get('/', (req, res) => {
@@ -45,37 +39,25 @@ app.get('/version', (req, res) => {
 app.get('/events', (req, res) => {
     res.json(mockEvents);
 });
-app.get('/updateevents', (req, res) => {
-    res.json(mockUpdateEvents);
-});
 
 // Adds an event - in a real solution, this would insert into a cloud datastore.
 // Currently this simply adds an event to the mock array in memory
 // this will produce unexpected behavior in a stateless kubernetes cluster. 
 app.post('/event', (req, res) => {
     // create a new object from the json data and add an id
-    const ev = { 
+    const ev = {
         title: req.body.title, 
         description: req.body.description,
+        Country: req.body.Country,
+        City: req.body.City,
+        Image: req.body.Image,
         id : mockEvents.events.length + 1
      }
     // add to the mock array
     mockEvents.events.push(ev);
     // return the complete array
     res.json(mockEvents);
-}
-
-);
-app.post('/updateevents', (req, res) => {
-    // create a new object from the json data and add an id
-    const ab = { 
-        EventId: req.body.EventId, 
-        Updatedescription: req.body.Updatedescription,
-     }
-    // add to the mock array
-    mockUpdateEvents.updateevents.push=(ab);
-    // return the complete array
-    res.json(mockUpdateEvents);});
+});
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
