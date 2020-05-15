@@ -96,7 +96,7 @@ app.post('/event', (req, res) => {
          Country: req.body.Country,
          City: req.body.City,
          Image: req.body.Image,
-        //id : mockEvents.events.length + 1
+         //id : mockEvents.events.length + 1
      }
 // this will create the Events collection if it does not exist
     firestore.collection("Events").add(ev).then(ret => {
